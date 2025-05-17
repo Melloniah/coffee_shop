@@ -1,5 +1,3 @@
-from lib.customer import Customer
-from lib.coffee import Coffee
 
 
 class Order:
@@ -16,6 +14,7 @@ class Order:
 
     @customer.setter #validates the customer class instance called here
     def customer(self, value):
+        from lib.customer import Customer  # import here to avoid circular import
         if not isinstance(value, Customer):
             raise TypeError("customer must be an instance of Customer")
         self._customer = value
@@ -26,6 +25,7 @@ class Order:
 
     @coffee.setter #validates the Coffee class instance called here
     def coffee(self, value):
+        from lib.coffee import Coffee  # import here to avoid circular import
         if not isinstance(value, Coffee):
             raise TypeError("coffee must be an instance of Coffee")
         self._coffee = value
@@ -43,4 +43,4 @@ class Order:
         self._price = amount
 
 
-    
+        

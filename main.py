@@ -12,8 +12,8 @@ alice = Customer("Alice")
 bob = Customer("Bob")
 charlie = Customer("Charlie")
 
-latte = Coffee("Latte")
-espresso = Coffee("Espresso")
+latte = Coffee("latte", "medium", 5.00, "espresso")
+espresso = Coffee("espresso", "small", 8.00, "latte")
 
 Order(alice, latte, 5.00)
 Order(bob, espresso, 4.50)
@@ -26,7 +26,7 @@ Order(charlie, latte, 5.00)
 # ---------------------
 
 print("\n--- All Customers ---")
-for customer in Customer.all():
+for customer in Customer.all:
     print(customer.name)
 
 print("\n--- Coffees Ordered by Alice ---")
@@ -38,7 +38,8 @@ for customer in espresso.customers():
     print(customer.name)
 
 print("\n--- Most Aficionado for Espresso ---")
-print(espresso.most_aficionado().name)
+print(Customer.most_aficionado(espresso).name)
+
 
 # ---------------------
 # Basic Validations
@@ -49,16 +50,16 @@ def run_validations():
     try:
         Order("not a customer", espresso, 4.00)
     except Exception:
-        print("✔️  Rejected invalid customer")
+        print("✔️  Rejected, that is not a valid customer")
 
     try:
         Order(alice, "not a coffee", 4.00)
     except Exception:
-        print("✔️  Rejected invalid coffee")
+        print("✔️  Error, please input a valid coffee name")
 
     try:
         Order(alice, espresso, "free")
     except Exception:
-        print("✔️  Rejected invalid price")
+        print("✔️  Error, price must be a number between 1.00 to 10.00")
 
 run_validations()

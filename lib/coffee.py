@@ -1,4 +1,5 @@
-from order import Order  # Import Order class to establish relationships
+
+
 
 class Coffee:
     all = []  # Class variable to store all instances of Coffee
@@ -30,9 +31,10 @@ class Coffee:
     @size.setter
     def size(self, value):
         allowed_sizes = ["small", "medium", "large"]
-        if value not in allowed_sizes:
-            raise ValueError(f"Size must be one of {allowed_sizes}")
-        self._size = value
+        if isinstance(value, str) and value.lower() in allowed_sizes:
+            self._size = value.lower()
+        else:
+            raise ValueError(f"Size must be one of {allowed_sizes}")    
 
     @property
     def type_of_coffee(self):
@@ -56,25 +58,29 @@ class Coffee:
         if not isinstance(value, (float, int)):
             raise TypeError("price must be a number")
         if not (1.0 <= float(value) <= 10.0):
-            raise ValueError("Price must be between $1.00 and $10.00")
+            raise ValueError("Price must be between 1.00 and 10.00")
         self._price = float(value)
 
     def orders(self):
         """Return all orders associated with this Coffee instance."""
+        from lib.order import Order
         return [order for order in Order.all if order.coffee == self]
 
     def customers(self):
         """
         Return a unique list of customers who have ordered this coffee.
         """
-        unique_customers = {order.customer for order in self.orders()}
+        from lib.order import Order
+        unique_customers = {order.customer for order in self.orders()} #self.orders is the method orders being calles
         return list(unique_customers)
 
     def num_orders(self):
         """Count how many times this coffee has been ordered."""
+        from lib.order import Order
         return len([order for order in Order.all if order.coffee == self])
 
     def average_price(self):
+        from lib.order import Order
         """Calculate the average price of this coffee across orders."""
         coffee_orders = [order for order in Order.all if order.coffee == self]
         if coffee_orders:
