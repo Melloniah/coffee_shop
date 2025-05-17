@@ -13,6 +13,8 @@ class Customer:
 
     @name.setter
     def name(self, value):
+        if not isinstance(value, str):
+            raise TypeError("Name must be a string")
         if not (1 <= len(value) <= 15):
             raise ValueError("Name must be between 1 and 15 characters")
         self._name = value
@@ -31,9 +33,12 @@ class Customer:
         unique_coffee_set = {order.coffee for order in self.orders()}
         return list(unique_coffee_set)
     def create_order(self, coffee, price):
-        # This creates a new order, and it's automatically added to Order.all
-        return Order(customer=self, price=price, coffee=coffee) #aggregation because they are referencing order and coffee. 
-
+         """
+        Create a new Order associating this customer with a coffee and price.
+        Aggregation: Customer references Order and Coffee instances without owning them exclusively.
+        """
+         
+        return Order(customer=self, price=price, coffee=coffee) 
 
     @classmethod
     
