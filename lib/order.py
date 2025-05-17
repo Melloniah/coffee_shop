@@ -1,5 +1,6 @@
-from customer import Customer
-from coffee import Coffee
+from lib.customer import Customer
+from lib.coffee import Coffee
+
 
 class Order:
     all=[]

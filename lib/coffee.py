@@ -41,3 +41,22 @@ class Coffee:
         """
         unique_customers = {order.customer for order in self.orders()}
         return list(unique_customers) #self.orders is the method above being called. 
+
+   
+  #association because one class uses or references another without taking ownership of it.
+    def num_orders(self):
+    # Count how many times this coffee has been ordered
+        return len([order for order in Order.all if order.coffee == self])
+
+    def average_price(self):
+    # Filter orders that include this coffee
+        coffee_orders = [order for order in Order.all if order.coffee == self]
+    
+    # Calculate average price if orders exist
+        if coffee_orders:
+            total_price = sum(order.price for order in coffee_orders)
+            return total_price / len(coffee_orders)
+    
+    # If no orders, return 0
+        return 0
+
