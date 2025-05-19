@@ -1,5 +1,5 @@
 import sys
-sys.path.append('./')
+sys.path.append('./') #importing from lib
 
 from lib.customer import Customer
 from lib.coffee import Coffee
@@ -15,17 +15,17 @@ charlie = Customer("Charlie")
 latte = Coffee("latte", "medium", 5.00, "espresso")
 espresso = Coffee("espresso", "small", 8.00, "latte")
 
-Order(alice, latte, 5.00)
-Order(bob, espresso, 4.50)
-Order(alice, espresso, 4.00)
-Order(charlie, espresso, 3.50)
-Order(charlie, latte, 5.00)
+Order(alice, latte, "small", 5.00)
+Order(bob, espresso, "medium", 4.50)
+Order(alice, espresso, "medium", 4.00)
+Order(charlie, espresso, "small", 3.50)
+Order(charlie, latte, "large", 5.00)
 
 # ---------------------
 # Sample Interactions
 # ---------------------
 
-print("\n--- All Customers ---")
+print("\n--- All Customers ---") #loops through all customer names and prints them n a new line
 for customer in Customer.all:
     print(customer.name)
 
@@ -39,6 +39,9 @@ for customer in espresso.customers():
 
 print("\n--- Most Aficionado for Espresso ---")
 print(Customer.most_aficionado(espresso).name)
+
+print("\n--- Most Aficionado for Latte ---")
+print(Customer.most_aficionado(latte).name)
 
 
 # ---------------------

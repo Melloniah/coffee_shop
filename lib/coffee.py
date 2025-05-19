@@ -1,6 +1,6 @@
 
 
-
+ALLOWED_SIZES = ["small", "medium", "large"] #to be shared in the order class too
 class Coffee:
     all = []  # Class variable to store all instances of Coffee
 
@@ -30,11 +30,10 @@ class Coffee:
 
     @size.setter
     def size(self, value):
-        allowed_sizes = ["small", "medium", "large"]
-        if isinstance(value, str) and value.lower() in allowed_sizes:
+        if isinstance(value, str) and value.lower() in ALLOWED_SIZES:
             self._size = value.lower()
         else:
-            raise ValueError(f"Size must be one of {allowed_sizes}")    
+            raise ValueError(f"Size must be one of {ALLOWED_SIZES}")   
 
     @property
     def type_of_coffee(self):
